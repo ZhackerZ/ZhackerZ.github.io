@@ -1,0 +1,525 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Yuzhen Liu">
+  
+  
+  
+  
+    <meta name="description" content="The Art of NodeAn introduction to Node.jsThis document is intended for readers who know at least a little bit of a couple of things:
+
+a scripting language like JavaScript, Ruby, Python, Perl, etc. ...">
+  
+  <title>Learn NodeJS [ 23333333333 ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+</div>
+<div id="container" class="hide-area">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="/images/me.jpeg"/>
+          <div id="homelink">23333333333</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/archives">Archives</a></li>
+        
+          <li><a href="/tags">Tags</a></li>
+        
+          <li><a href="/categories">Categories</a></li>
+        
+          <li><a href="/about">About</a></li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>Learn NodeJS</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2016-06-12</span>
+      
+        <span id = "post-title-updated">Updated at 2016-06-12</span>
+      
+      
+      
+    </p>
+    
+    <h1 id="The-Art-of-Node"><a href="#The-Art-of-Node" class="headerlink" title="The Art of Node"></a>The Art of Node</h1><h2 id="An-introduction-to-Node-js"><a href="#An-introduction-to-Node-js" class="headerlink" title="An introduction to Node.js"></a>An introduction to Node.js</h2><p>This document is intended for readers who know at least a little bit of a couple of things:</p>
+<ul>
+<li>a scripting language like JavaScript, Ruby, Python, Perl, etc. If you aren’t a programmer yet then it is probably easier to start by reading <a href="http://jsforcats.com/" target="_blank" rel="external">JavaScript for Cats</a>. :cat2:</li>
+<li>git and github. These are the open source collaboration tools that people in the node community use to share modules. You just need to know the basics. Here are three great intro tutorials: <a href="https://github.com/jlord/git-it-electron#readme" target="_blank" rel="external">1</a>, <a href="http://ericsteinborn.com/github-for-cats/#/" target="_blank" rel="external">2</a>, <a href="http://opensourcerer.diy.org/" target="_blank" rel="external">3</a></li>
+</ul>
+<h2 id="Table-of-contents"><a href="#Table-of-contents" class="headerlink" title="Table of contents"></a>Table of contents</h2><ul>
+<li><a href="#learn-node-interactively">Learn node interactively</a></li>
+<li><a href="#understanding-node">Understanding node</a></li>
+<li><a href="#core-modules">Core modules</a></li>
+<li><a href="#callbacks">Callbacks</a></li>
+<li><a href="#events">Events</a></li>
+<li><a href="#streams">Streams</a></li>
+<li><a href="#modules">Modules and npm</a></li>
+<li><a href="#client-side-development-with-npm">Client side development with npm</a></li>
+<li><a href="#going-with-the-grain">Going with the grain</a></li>
+</ul>
+<h2 id="Learn-node-interactively"><a href="#Learn-node-interactively" class="headerlink" title="Learn node interactively"></a>Learn node interactively</h2><p>In addition to reading this guide it’s super important to also bust out your favorite text editor and actually write some node code. I always find that when I just read some code in a book it never really clicks, but learning by writing code is a good way to grasp new programming concepts.</p>
+<h3 id="NodeSchool-io"><a href="#NodeSchool-io" class="headerlink" title="NodeSchool.io"></a>NodeSchool.io</h3><p><a href="http://nodeschool.io/" target="_blank" rel="external">NodeSchool.io</a> is a series of free + open source interactive workshops that teach you the principles of Node.js and beyond.</p>
+<p><a href="https://github.com/rvagg/learnyounode#learn-you-the-nodejs-for-much-win" target="_blank" rel="external">Learn You The Node.js</a> is the introductory NodeSchool.io workshop. It’s a set of programming problems that introduce you to common node patterns. It comes packaged as a command line program.</p>
+<p><a href="https://github.com/rvagg/learnyounode#learn-you-the-nodejs-for-much-win" target="_blank" rel="external"><img src="https://github.com/rvagg/learnyounode/raw/master/learnyounode.png" alt="learnyounode"></a></p>
+<p>You can install it with npm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># install</span><br><span class="line">npm install learnyounode -g</span><br><span class="line"></span><br><span class="line"># start the menu</span><br><span class="line">learnyounode</span><br></pre></td></tr></table></figure>
+<h2 id="Understanding-node"><a href="#Understanding-node" class="headerlink" title="Understanding node"></a>Understanding node</h2><p>Node.js is an open source project designed to help you write JavaScript programs that talk to networks, file systems or other I/O (input/output, reading/writing) sources. That’s it! It is just a simple and stable I/O platform that you are encouraged to build modules on top of.</p>
+<p>What are some examples of I/O? Here is a diagram of an application that I made with node that shows many I/O sources:</p>
+<p><img src="server-diagram.png" alt="server diagram"></p>
+<p>If you don’t understand all of the different things in the diagram it is completely okay. The point is to show that a single node process (the hexagon in the middle) can act as the broker between all of the different I/O endpoints (orange and purple represent I/O).</p>
+<p>Usually building these kinds of systems is either:</p>
+<ul>
+<li>difficult to code but yields super fast results (like writing your web servers from scratch in C)</li>
+<li>easy to code but not very speedy/robust (like when someone tries to upload a 5GB file and your server crashes)</li>
+</ul>
+<p>Node’s goal is to strike a balance between these two: relatively easy to understand and use and fast enough for most use cases.</p>
+<p>Node isn’t either of the following:</p>
+<ul>
+<li>A web framework (like Rails or Django, though it can be used to make such things)</li>
+<li>A programming language (it uses JavaScript but node isn’t its own language)</li>
+</ul>
+<p>Instead, node is somewhere in the middle. It is:</p>
+<ul>
+<li>Designed to be simple and therefore relatively easy to understand and use</li>
+<li>Useful for I/O based programs that need to be fast and/or handle lots of connections</li>
+</ul>
+<p>At a lower level, node can be described as a tool for writing two major types of programs: </p>
+<ul>
+<li>Network programs using the protocols of the web: HTTP, TCP, UDP, DNS and SSL</li>
+<li>Programs that read and write data to the filesystem or local processes/memory</li>
+</ul>
+<p>What is an “I/O based program”? Here are some common I/O sources:</p>
+<ul>
+<li>Databases (e.g. MySQL, PostgreSQL, MongoDB, Redis, CouchDB)</li>
+<li>APIs (e.g. Twitter, Facebook, Apple Push Notifications)</li>
+<li>HTTP/WebSocket connections (from users of a web app)</li>
+<li>Files (image resizer, video editor, internet radio)</li>
+</ul>
+<p>Node does I/O in a way that is <a href="https://en.wikipedia.org/wiki/Asynchronous_I/O" target="_blank" rel="external">asynchronous</a> which lets it handle lots of different things simultaneously. For example, if you go down to a fast food joint and order a cheeseburger they will immediately take your order and then make you wait around until the cheeseburger is ready. In the meantime they can take other orders and start cooking cheeseburgers for other people. Imagine if you had to wait at the register for your cheeseburger, blocking all other people in line from ordering while they cooked your burger! This is called <strong>blocking I/O</strong> because all I/O (cooking cheeseburgers) happens one at a time. Node, on the other hand, is <strong>non-blocking</strong>, which means it can cook many cheeseburgers at once.</p>
+<p>Here are some fun things made easy with node thanks to its non-blocking nature:</p>
+<ul>
+<li>Control <a href="http://www.nodecopter.com/" target="_blank" rel="external">flying quadcopters</a></li>
+<li>Write IRC chat bots</li>
+<li>Create <a href="https://www.youtube.com/watch?v=jf-cEB3U2UQ" target="_blank" rel="external">walking biped robots</a></li>
+</ul>
+<h2 id="Core-modules"><a href="#Core-modules" class="headerlink" title="Core modules"></a>Core modules</h2><p>Firstly I would recommend that you get node installed on your computer. The easiest way is to visit <a href="http://nodejs.org" target="_blank" rel="external">nodejs.org</a> and click <code>Install</code>.</p>
+<p>Node has a small core group of modules (commonly referred to as ‘node core’) that are presented as the public API that you are intended to write programs with. For working with file systems there is the <code>fs</code> module and for networks there are modules like <code>net</code> (TCP), <code>http</code>, <code>dgram</code> (UDP).</p>
+<p>In addition to <code>fs</code> and network modules there are a number of other base modules in node core. There is a module for asynchronously resolving DNS queries called <code>dns</code>, a module for getting OS specific information like the tmpdir location called <code>os</code>, a module for allocating binary chunks of memory called <code>buffer</code>, some modules for parsing urls and paths (<code>url</code>, <code>querystring</code>, <code>path</code>), etc. Most if not all of the modules in node core are there to support node’s main use case: writing fast programs that talk to file systems or networks.</p>
+<p>Node handles I/O with: callbacks, events, streams and modules. If you learn how these four things work then you will be able to go into any module in node core and have a basic understanding about how to interface with it.</p>
+<h2 id="Callbacks"><a href="#Callbacks" class="headerlink" title="Callbacks"></a>Callbacks</h2><p>This is the most important topic to understand if you want to understand how to use node. Nearly everything in node uses callbacks. They weren’t invented by node, they are just part of the JavaScript language.</p>
+<p>Callbacks are functions that are executed asynchronously, or at a later time. Instead of the code reading top to bottom procedurally, async programs may execute different functions at different times based on the order and speed that earlier functions like http requests or file system reads happen.</p>
+<p>The difference can be confusing since determining if a function is asynchronous or not depends a lot on context. Here is a simple synchronous example, meaning you can read the code top to bottom just like a book:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myNumber = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOne</span>(<span class="params"></span>) </span>&#123; myNumber++ &#125; <span class="comment">// define the function</span></span><br><span class="line">addOne() <span class="comment">// run the function</span></span><br><span class="line"><span class="built_in">console</span>.log(myNumber) <span class="comment">// logs out 2</span></span><br></pre></td></tr></table></figure>
+<p>The code here defines a function and then on the next line calls that function, without waiting for anything. When the function is called it immediately adds 1 to the number, so we can expect that after we call the function the number should be 2. This is the expectation of synchronous code - it sequentially runs top to bottom.</p>
+<p>Node, however, uses mostly asynchronous code. Let’s use node to read our number from a file called <code>number.txt</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>) <span class="comment">// require is a special function provided by node</span></span><br><span class="line"><span class="keyword">var</span> myNumber = <span class="literal">undefined</span> <span class="comment">// we don't know what the number is yet since it is stored in a file</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOne</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">fs.readFile(<span class="string">'number.txt'</span>, <span class="function"><span class="keyword">function</span> <span class="title">doneReading</span>(<span class="params">err, fileContents</span>) </span>&#123;</span><br><span class="line">myNumber = <span class="built_in">parseInt</span>(fileContents)</span><br><span class="line">myNumber++</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addOne()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myNumber) <span class="comment">// logs out undefined -- this line gets run before readFile is done</span></span><br></pre></td></tr></table></figure>
+<p>Why do we get <code>undefined</code> when we log out the number this time? In this code we use the <code>fs.readFile</code> method, which happens to be an asynchronous method. Usually things that have to talk to hard drives or networks will be asynchronous. If they just have to access things in memory or do some work on the CPU they will be synchronous. The reason for this is that I/O is reallyyy reallyyy sloowwww. A ballpark figure would be that talking to a hard drive is about 100,000 times slower than talking to memory (e.g. RAM).</p>
+<p>When we run this program all of the functions are immediately defined, but they don’t all execute immediately. This is a fundamental thing to understand about async programming. When <code>addOne</code> is called it kicks off a <code>readFile</code> and then moves on to the next thing that is ready to execute. If there is nothing to execute node will either wait for pending fs/network operations to finish or it will stop running and exit to the command line.</p>
+<p>When <code>readFile</code> is done reading the file (this may take anywhere from milliseconds to seconds to minutes depending on how fast the hard drive is) it will run the <code>doneReading</code> function and give it an error (if there was an error) and the file contents.</p>
+<p>The reason we got <code>undefined</code> above is that nowhere in our code exists logic that tells the <code>console.log</code> statement to wait until the <code>readFile</code> statement finishes before it prints out the number.</p>
+<p>If you have some code that you want to be able to execute over and over again, or at a later time, the first step is to put that code inside a function. Then you can call the function whenever you want to run your code. It helps to give your functions descriptive names.</p>
+<p>Callbacks are just functions that get executed at some later time. The key to understanding callbacks is to realize that they are used when you don’t know <strong>when</strong> some async operation will complete, but you do know <strong>where</strong> the operation will complete — the last line of the async function! The top-to-bottom order that you declare callbacks does not necessarily matter, only the logical/hierarchical nesting of them. First you split your code up into functions, and then use callbacks to declare if one function depends on another function finishing.</p>
+<p>The <code>fs.readFile</code> method is provided by node, is asynchronous, and happens to take a long time to finish. Consider what it does: it has to go to the operating system, which in turn has to go to the file system, which lives on a hard drive that may or may not be spinning at thousands of revolutions per minute. Then it has to use a magnetic head to read data and send it back up through the layers back into your javascript program. You give <code>readFile</code> a function (known as a callback) that it will call after it has retrieved the data from the file system. It puts the data it retrieved into a javascript variable and calls your function (callback) with that variable. In this case the variable is called <code>fileContents</code> because it contains the contents of the file that was read.</p>
+<p>Think of the restaurant example at the beginning of this tutorial. At many restaurants you get a number to put on your table while you wait for your food. These are a lot like callbacks. They tell the server what to do after your cheeseburger is done.</p>
+<p>Let’s put our <code>console.log</code> statement into a function and pass it in as a callback:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"><span class="keyword">var</span> myNumber = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOne</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">fs.readFile(<span class="string">'number.txt'</span>, <span class="function"><span class="keyword">function</span> <span class="title">doneReading</span>(<span class="params">err, fileContents</span>) </span>&#123;</span><br><span class="line">myNumber = <span class="built_in">parseInt</span>(fileContents)</span><br><span class="line">myNumber++</span><br><span class="line">callback()</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logMyNumber</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(myNumber)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addOne(logMyNumber)</span><br></pre></td></tr></table></figure>
+<p>Now the <code>logMyNumber</code> function can get passed in as an argument that will become the <code>callback</code> variable inside the <code>addOne</code> function. After <code>readFile</code> is done the <code>callback</code> variable will be invoked (<code>callback()</code>). Only functions can be invoked, so if you pass in anything other than a function it will cause an error.</p>
+<p>When a function gets invoked in javascript the code inside that function will immediately get executed. In this case our log statement will execute since <code>callback</code> is actually <code>logMyNumber</code>. Remember, just because you <em>define</em> a function it doesn’t mean it will execute. You have to <em>invoke</em> a function for that to happen.</p>
+<p>To break down this example even more, here is a timeline of events that happen when we run this program:</p>
+<ul>
+<li>1: The code is parsed, which means if there are any syntax errors they would make the program break. During this initial phase, <code>fs</code> and <code>myNumber</code> are declared as variables while <code>addOne</code> and <code>logMyNumber</code> are declared as functions. Note that these are just declarations. Neither function has been called nor invoked yet.</li>
+<li>2: When the last line of our program gets executed <code>addOne</code> is invoked with the <code>logMyNumber</code> function passed as its <code>callback</code> argument. Invoking <code>addOne</code> will first run the asynchronous <code>fs.readFile</code> function. This part of the program takes a while to finish.</li>
+<li>3: With nothing to do, node idles for a bit as it waits for <code>readFile</code> to finish. If there was anything else to do during this time, node would be available for work.</li>
+<li>4: As soon as <code>readFile</code> finishes it executes its callback, <code>doneReading</code>, which parses <code>fileContents</code> for an integer called <code>myNumber</code>, increments <code>myNumber</code> and then immediately invokes the function that <code>addOne</code> passed in (its callback), <code>logMyNumber</code>.</li>
+</ul>
+<p>Perhaps the most confusing part of programming with callbacks is how functions are just objects that can be stored in variables and passed around with different names. Giving simple and descriptive names to your variables is important in making your code readable by others. Generally speaking in node programs when you see a variable like <code>callback</code> or <code>cb</code> you can assume it is a function.</p>
+<p>You may have heard the terms ‘evented programming’ or ‘event loop’. They refer to the way that <code>readFile</code> is implemented. Node first dispatches the <code>readFile</code> operation and then waits for <code>readFile</code> to send it an event that it has completed. While it is waiting node can go check on other things. Inside node there is a list of things that are dispatched but haven’t reported back yet, so node loops over the list again and again checking to see if they are finished. After they finished they get ‘processed’, e.g. any callbacks that depended on them finishing will get invoked.</p>
+<p>Here is a pseudocode version of the above example:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addOne</span>(<span class="params">thenRunThisFunction</span>) </span>&#123;</span><br><span class="line">waitAMinuteAsync(<span class="function"><span class="keyword">function</span> <span class="title">waitedAMinute</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">thenRunThisFunction()</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addOne(<span class="function"><span class="keyword">function</span> <span class="title">thisGetsRunAfterAddOneFinishes</span>(<span class="params"></span>) </span>&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<p>Imagine you had 3 async functions <code>a</code>, <code>b</code> and <code>c</code>. Each one takes 1 minute to run and after it finishes it calls a callback (that gets passed in the first argument). If you wanted to tell node ‘start running a, then run b after a finishes, and then run c after b finishes’ it would look like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">b(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">c()</span><br><span class="line">&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>When this code gets executed, <code>a</code> will immediately start running, then a minute later it will finish and call <code>b</code>, then a minute later it will finish and call <code>c</code> and finally 3 minutes later node will stop running since there would be nothing more to do. There are definitely more elegant ways to write the above example, but the point is that if you have code that has to wait for some other async code to finish then you express that dependency by putting your code in functions that get passed around as callbacks.</p>
+<p>The design of node requires you to think non-linearly. Consider this list of operations:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read a file</span><br><span class="line">process that file</span><br></pre></td></tr></table></figure>
+<p>If you were to turn this into pseudocode you would end up with this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var file = readFile()</span><br><span class="line">processFile(file)</span><br></pre></td></tr></table></figure>
+<p>This kind of linear (step-by-step, in order) code isn’t the way that node works. If this code were to get executed then <code>readFile</code> and <code>processFile</code> would both get executed at the same exact time. This doesn’t make sense since <code>readFile</code> will take a while to complete. Instead you need to express that <code>processFile</code> depends on <code>readFile</code> finishing. This is exactly what callbacks are for! And because of the way that JavaScript works you can write this dependency many different ways:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>, finishedReading)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishedReading</span>(<span class="params">error, movieData</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="built_in">console</span>.error(error)</span><br><span class="line"><span class="comment">// do something with the movieData</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>But you could also structure your code like this and it would still work:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">finishedReading</span>(<span class="params">error, movieData</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="built_in">console</span>.error(error)</span><br><span class="line"><span class="comment">// do something with the movieData</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>, finishedReading)</span><br></pre></td></tr></table></figure>
+<p>Or even like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>, <span class="function"><span class="keyword">function</span> <span class="title">finishedReading</span>(<span class="params">error, movieData</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span> (error) <span class="keyword">return</span> <span class="built_in">console</span>.error(error)</span><br><span class="line"><span class="comment">// do something with the movieData</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Events"><a href="#Events" class="headerlink" title="Events"></a>Events</h2><p>In node if you require the <a href="http://nodejs.org/api/events.html" target="_blank" rel="external">events</a> module you can use the so-called ‘event emitter’ that node itself uses for all of its APIs that emit things.</p>
+<p>Events are a common pattern in programming, known more widely as the <a href="https://en.wikipedia.org/wiki/Observer_pattern" target="_blank" rel="external">‘observer pattern’</a> or ‘pub/sub’ (publish/subscribe). Whereas callbacks are a one-to-one relationship between the thing waiting for the callback and the thing calling the callback, events are the same exact pattern except with a many-to-many API.</p>
+<p>The easiest way to think about events is that they let you subscribe to things. You can say ‘when X do Y’, whereas with plain callbacks it is ‘do X then Y’.</p>
+<p>Here are few common use cases for using events instead of plain callbacks:</p>
+<ul>
+<li>Chat room where you want to broadcast messages to many listeners</li>
+<li>Game server that needs to know when new players connect, disconnect, move, shoot and jump</li>
+<li>Game engine where you want to let game developers subscribe to events like <code>.on(&#39;jump&#39;, function() {})</code></li>
+<li>A low level web server that wants to expose an API to easily hook into events that happen like <code>.on(&#39;incomingRequest&#39;)</code> or <code>.on(&#39;serverError&#39;)</code></li>
+</ul>
+<p>If we were trying to write a module that connects to a chat server using only callbacks it would look like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chatClient = <span class="built_in">require</span>(<span class="string">'my-chat-client'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onConnect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// have the UI show we are connected</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onConnectionError</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line"><span class="comment">// show error to the user</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onDisconnect</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// tell user that they have been disconnected</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">onMessage</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line"><span class="comment">// show the chat room message in the UI</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">chatClient.connect(</span><br><span class="line"><span class="string">'http://mychatserver.com'</span>,</span><br><span class="line">onConnect,</span><br><span class="line">onConnectionError,</span><br><span class="line">onDisconnect,</span><br><span class="line">onMessage</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>As you can see this is really cumbersome because of all of the functions that you have to pass in a specific order to the <code>.connect</code> function. Writing this with events would look like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chatClient = <span class="built_in">require</span>(<span class="string">'my-chat-client'</span>).connect()</span><br><span class="line"></span><br><span class="line">chatClient.on(<span class="string">'connect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// have the UI show we are connected</span></span><br><span class="line">&#125;) </span><br><span class="line"></span><br><span class="line">chatClient.on(<span class="string">'connectionError'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// show error to the user</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">chatClient.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// tell user that they have been disconnected</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">chatClient.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// show the chat room message in the UI</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>This approach is similar to the pure-callback approach but introduces the <code>.on</code> method, which subscribes a callback to an event. This means you can choose which events you want to subscribe to from the <code>chatClient</code>. You can also subscribe to the same event multiple times with different callbacks:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> chatClient = <span class="built_in">require</span>(<span class="string">'my-chat-client'</span>).connect()</span><br><span class="line">chatClient.on(<span class="string">'message'</span>, logMessage)</span><br><span class="line">chatClient.on(<span class="string">'message'</span>, storeMessage)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">logMessage</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(message)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeMessage</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">myDatabase.save(message)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Streams"><a href="#Streams" class="headerlink" title="Streams"></a>Streams</h2><p>Early on in the node project the file system and network APIs had their own separate patterns for dealing with streaming I/O. For example, files in a file system have things called ‘file descriptors’ so the <code>fs</code> module had to have extra logic to keep track of these things whereas the network modules didn’t have such a concept. Despite minor differences in semantics like these, at a fundamental level both groups of code were duplicating a lot of functionality when it came to reading data in and out. The team working on node realized that it would be confusing to have to learn two sets of semantics to essentially do the same thing so they made a new API called the <code>Stream</code> and made all the network and file system code use it. </p>
+<p>The whole point of node is to make it easy to deal with file systems and networks so it made sense to have one pattern that was used everywhere. The good news is that most of the patterns like these (there are only a few anyway) have been figured out at this point and it is very unlikely that node will change that much in the future.</p>
+<p>There are already two great resources that you can use to learn about node streams. One is the stream-adventure (see the Learn Node Interactively section) and the other is a reference called the Stream Handbook.</p>
+<h3 id="Stream-Handbook"><a href="#Stream-Handbook" class="headerlink" title="Stream Handbook"></a>Stream Handbook</h3><p><a href="https://github.com/substack/stream-handbook#introduction" target="_blank" rel="external">stream-handbook</a> is a guide, similar to this one, that contains a reference for everything you could possibly need to know about streams.</p>
+<p><a href="https://github.com/substack/stream-handbook" target="_blank" rel="external"><img src="stream-handbook.png" alt="stream-handbook"></a></p>
+<h2 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h2><p>Node core is made up of about two dozen modules, some lower level ones like <code>events</code> and <code>stream</code> some higher level ones like <code>http</code> and <code>crypto</code>.</p>
+<p>This design is intentional. Node core is supposed to be small, and the modules in core should be focused on providing tools for working with common I/O protocols and formats in a way that is cross-platform.</p>
+<p>For everything else there is <a href="https://www.npmjs.com/" target="_blank" rel="external">npm</a>. Anyone can create a new node module that adds some functionality and publish it to npm. As of the time of this writing there are 34,000 modules on npm.</p>
+<h3 id="How-to-find-a-module"><a href="#How-to-find-a-module" class="headerlink" title="How to find a module"></a>How to find a module</h3><p>Imagine you are trying to convert PDF files into TXT files. The best place to start is by doing <code>npm search pdf</code>:</p>
+<p><img src="npm-search.png" alt="pdfsearch"></p>
+<p>There are a ton of results! npm is quite popular and you will usually be able to find multiple potential solutions. If you go through each module and whittle down the results into a more narrow set (filtering out things like PDF generation modules) you’ll end up with these:</p>
+<ul>
+<li><a href="https://github.com/galkahana/HummusJS/wiki/Features" target="_blank" rel="external">hummus</a> - c++ pdf manipulator</li>
+<li><a href="https://github.com/steelThread/mimeograph" target="_blank" rel="external">mimeograph</a> - api on a conglomeration of tools (poppler, tesseract, imagemagick etc)</li>
+<li><a href="https://www.npmjs.com/package/pdftotextjs" target="_blank" rel="external">pdftotextjs</a> - wrapper around <a href="https://en.wikipedia.org/wiki/Pdftotext" target="_blank" rel="external">pdftotext</a></li>
+<li><a href="https://www.npmjs.com/package/pdf-text-extract" target="_blank" rel="external">pdf-text-extract</a> - another wrapper around pdftotext</li>
+<li><a href="https://www.npmjs.com/package/pdf-extract" target="_blank" rel="external">pdf-extract</a> - wrapper around pdftotext, pdftk, tesseract, ghostscript</li>
+<li><a href="https://www.npmjs.com/package/pdfutils" target="_blank" rel="external">pdfutils</a> - poppler wrapper</li>
+<li><a href="https://www.npmjs.com/package/scissors" target="_blank" rel="external">scissors</a> - pdftk, ghostscript wrapper w/ high level api</li>
+<li><a href="https://www.npmjs.com/package/textract" target="_blank" rel="external">textract</a> - pdftotext wrapper</li>
+<li><a href="https://github.com/fagbokforlaget/pdfiijs" target="_blank" rel="external">pdfiijs</a> - pdf to inverted index using textiijs and poppler</li>
+<li><a href="https://github.com/modesty/pdf2json/blob/master/readme.md" target="_blank" rel="external">pdf2json</a> - pure js pdf to json</li>
+</ul>
+<p>A lot of the modules have overlapping functionality but present alternate APIs and most of them require external dependencies (like <code>apt-get install poppler</code>).</p>
+<p>Here are some different ways to interpret the modules:</p>
+<ul>
+<li><code>pdf2json</code> is the only one that is written in pure JavaScript, which means it is the easiest to install, especially on low power devices like the raspberry pi or on Windows where native code might not be cross platform.</li>
+<li>modules like <code>mimeograph</code>, <code>hummus</code> and <code>pdf-extract</code> each combine multiple lower level modules to expose a high level API</li>
+<li>a lot of modules seem to sit on top of the <code>pdftotext</code>/<code>poppler</code> unix command line tools</li>
+</ul>
+<p>Lets compare the differences between <code>pdftotextjs</code> and <code>pdf-text-extract</code>, both of which are are wrappers around the <code>pdftotext</code> utility.</p>
+<p><img src="pdf-modules.png" alt="pdf-modules"></p>
+<p>Both of these:</p>
+<ul>
+<li>were updated relatively recently</li>
+<li>have github repositories linked (this is very important!)</li>
+<li>have READMEs</li>
+<li>have at least some number of people installing them every week</li>
+<li>are liberally licensed (anyone can use them)</li>
+</ul>
+<p>Just looking at the <code>package.json</code> + module statistics it’s hard to get a feeling about which one might be the right choice. Let’s compare the READMEs:</p>
+<p><img src="pdf-readmes.png" alt="pdf-readmes"></p>
+<p>Both have simple descriptions, CI badges, installation instructions, clear examples and instructions for running the tests. Great! But which one do we use? Let’s compare the code:</p>
+<p><img src="pdf-code.png" alt="pdf-code"></p>
+<p><code>pdftotextjs</code> is around 110 lines of code, and <code>pdf-text-extract</code> is around 40, but both essentially boil down to this line:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var child = shell.exec(&apos;pdftotext &apos; + self.options.additional.join(&apos; &apos;));</span><br></pre></td></tr></table></figure>
+<p>Does this make one any better than the other? Hard to say! It’s important to actually <em>read</em> the code and make your own conclusions. If you find a module you like, use <code>npm star modulename</code> to give npm feedback about modules that you had a positive experience with.</p>
+<h3 id="Modular-development-workflow"><a href="#Modular-development-workflow" class="headerlink" title="Modular development workflow"></a>Modular development workflow</h3><p>npm is different from most package managers in that it installs modules into a folder inside of other existing modules. The previous sentence might not make sense right now but it is the key to npm’s success.</p>
+<p>Many package managers install things globally. For instance, if you <code>apt-get install couchdb</code> on Debian Linux it will try to install the latest stable version of CouchDB. If you are trying to install CouchDB as a dependency of some other piece of software and that software needs an older version of CouchDB, you have to uninstall the newer version of CouchDB and then install the older version. You can’t have two versions of CouchDB installed because Debian only knows how to install things into one place.</p>
+<p>It’s not just Debian that does this. Most programming language package managers work this way too. To address the global dependencies problem described above there have been virtual environment developed like <a href="http://python-guide.readthedocs.org/en/latest/dev/virtualenvs/" target="_blank" rel="external">virtualenv</a> for Python or <a href="http://bundler.io/" target="_blank" rel="external">bundler</a> for Ruby. These just split your environment up in to many virtual environments, one for each project, but inside each environment dependencies are still globally installed. Virtual environments don’t always solve the problem, sometimes they just multiply it by adding additional layers of complexity.</p>
+<p>With npm installing global modules is an anti-pattern. Just like how you shouldn’t use global variables in your JavaScript programs you also shouldn’t install global modules (unless you need a module with an executable binary to show up in your global <code>PATH</code>, but you don’t always need to do this – more on this later).</p>
+<h4 id="How-require-works"><a href="#How-require-works" class="headerlink" title="How require works"></a>How <code>require</code> works</h4><p>When you call <code>require(&#39;some_module&#39;)</code> in node here is what happens:</p>
+<ol>
+<li>if a file called <code>some_module.js</code> exists in the current folder node will load that, otherwise:</li>
+<li>node looks in the current folder for a <code>node_modules</code> folder with a <code>some_module</code> folder in it</li>
+<li>if it doesn’t find it, it will go up one folder and repeat step 2</li>
+</ol>
+<p>This cycle repeats until node reaches the root folder of the filesystem, at which point it will then check any global module folders (e.g. <code>/usr/local/node_modules</code> on Mac OS) and if it still doesn’t find <code>some_module</code> it will throw an exception.</p>
+<p>Here’s a visual example:</p>
+<p><img src="mod-diagram-01.png" alt="mod-diagram-01"></p>
+<p>When the current working directory is <code>subsubfolder</code> and <code>require(&#39;foo&#39;)</code> is called, node will look for the folder called <code>subsubfolder/node_modules</code>. In this case it won’t find it – the folder there is mistakenly called <code>my_modules</code>. Then node will go up one folder and try again, meaning it then looks for <code>subfolder_B/node_modules</code>, which also doesn’t exist. Third try is a charm, though, as <code>folder/node_modules</code> does exist <em>and</em> has a folder called <code>foo</code> inside of it. If <code>foo</code> wasn’t in there node would continue its search up the directory tree.</p>
+<p>Note that if called from <code>subfolder_B</code> node will never find <code>subfolder_A/node_modules</code>, it can only see <code>folder/node_modules</code> on its way up the tree.</p>
+<p>One of the benefits of npm’s approach is that modules can install their dependent modules at specific known working versions. In this case the module <code>foo</code> is quite popular - there are three copies of it, each one inside its parent module folder. The reasoning for this could be that each parent module needed a different version of <code>foo</code>, e.g. ‘folder’ needs <code>foo@0.0.1</code>, <code>subfolder_A</code> needs <code>foo@0.2.1</code> etc.</p>
+<p>Here’s what happens when we fix the folder naming error by changing <code>my_modules</code> to the correct name <code>node_modules</code>:</p>
+<p><img src="mod-diagram-02.png" alt="mod-diagram-02"></p>
+<p>To test out which module actually gets loaded by node, you can use the <code>require.resolve(&#39;some_module&#39;)</code> command, which will show you the path to the module that node finds as a result of the tree climbing process. <code>require.resolve</code> can be useful when double-checking that the module that you <em>think</em> is getting loaded is <em>actually</em> getting loaded – sometimes there is another version of the same module closer to your current working directory than the one you intend to load.</p>
+<h3 id="How-to-write-a-module"><a href="#How-to-write-a-module" class="headerlink" title="How to write a module"></a>How to write a module</h3><p>Now that you know how to find modules and require them you can start writing your own modules.</p>
+<h4 id="The-simplest-possible-module"><a href="#The-simplest-possible-module" class="headerlink" title="The simplest possible module"></a>The simplest possible module</h4><p>Node modules are radically lightweight. Here is one of the simplest possible node modules:</p>
+<p><code>package.json</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"name"</span>: <span class="string">"number-one"</span>,</span><br><span class="line"><span class="string">"version"</span>: <span class="string">"1.0.0"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>index.js</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>By default node tries to load <code>module/index.js</code> when you <code>require(&#39;module&#39;)</code>, any other file name won’t work unless you set the <code>main</code> field of <code>package.json</code> to point to it.</p>
+<p>Put both of those files in a folder called <code>number-one</code> (the <code>name</code> in <code>package.json</code> must match the folder name) and you’ll have a working node module.</p>
+<p>Calling the function <code>require(&#39;number-one&#39;)</code> returns the value of whatever <code>module.exports</code> is set to inside the module:</p>
+<p><img src="simple-module.png" alt="simple-module"></p>
+<p>An even quicker way to create a module is to run these commands:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir my_module</span><br><span class="line"><span class="built_in">cd</span> my_module</span><br><span class="line">git init</span><br><span class="line">git remote add git@github.com:yourusername/my_module.git</span><br><span class="line">npm init</span><br></pre></td></tr></table></figure>
+<p>Running <code>npm init</code> will create a valid <code>package.json</code> for you and if you run it in an existing <code>git</code> repo it will set the <code>repositories</code> field inside <code>package.json</code> automatically as well!</p>
+<h4 id="Adding-dependencies"><a href="#Adding-dependencies" class="headerlink" title="Adding dependencies"></a>Adding dependencies</h4><p>A module can list any other modules from npm or GitHub in the <code>dependencies</code> field of <code>package.json</code>. To install the <code>request</code> module as a new dependency and automatically add it to <code>package.json</code> run this from your module root directory:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save request</span><br></pre></td></tr></table></figure>
+<p>This installs a copy of <code>request</code> into the closest <code>node_modules</code> folder and makes our <code>package.json</code> look something like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;id&quot;: &quot;number-one&quot;,</span><br><span class="line">&quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">&quot;dependencies&quot;: &#123;</span><br><span class="line">&quot;request&quot;: &quot;~2.22.0&quot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>By default <code>npm install</code> will grab the latest published version of a module.</p>
+<h2 id="Client-side-development-with-npm"><a href="#Client-side-development-with-npm" class="headerlink" title="Client side development with npm"></a>Client side development with npm</h2><p>A common misconception about npm is that since it has ‘Node’ in the name that it must only be used for server side JS modules. This is completely untrue! npm actually stands for Node Packaged Modules, e.g. modules that Node packages together for you. The modules themselves can be whatever you want – they are just a folder of files wrapped up in a .tar.gz, and a file called <code>package.json</code> that declares the module version and a list of all modules that are dependencies of the module (as well as their version numbers so the working versions get installed automatically). It’s turtles all the way down - module dependencies are just modules, and those modules can have dependencies etc. etc. etc.</p>
+<p><a href="http://browserify.org/" target="_blank" rel="external">browserify</a> is a utility written in Node that tries to convert any node module into code that can be run in browsers. Not all modules work (browsers can’t do things like host an HTTP server), but a lot of modules on NPM <em>will</em> work.</p>
+<p>To try out npm in the browser you can use <a href="http://requirebin.com/" target="_blank" rel="external">RequireBin</a>, an app I made that takes advantage of <a href="https://github.com/jfhbrook/wzrd.in" target="_blank" rel="external">Browserify-CDN</a>, which internally uses browserify but returns the output through HTTP (instead of the command line – which is how browserify is usually used).</p>
+<p>Try putting this code into RequireBin and then hit the preview button:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reverse = <span class="built_in">require</span>(<span class="string">'ascii-art-reverse'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// makes a visible HTML console</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'console-log'</span>).show(<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> coolbear =</span><br><span class="line"><span class="string">"    ('-^-/')  \n"</span> +</span><br><span class="line"><span class="string">"    `o__o' ]  \n"</span> +</span><br><span class="line"><span class="string">"    (_Y_) _/  \n"</span> +</span><br><span class="line"><span class="string">"  _..`--'-.`, \n"</span> +</span><br><span class="line"><span class="string">" (__)_,--(__) \n"</span> +</span><br><span class="line"><span class="string">"     7:   ; 1 \n"</span> +</span><br><span class="line"><span class="string">"   _/,`-.-' : \n"</span> +</span><br><span class="line"><span class="string">"  (_,)-~~(_,) \n"</span></span><br><span class="line"></span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(coolbear) &#125;, <span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(reverse(coolbear)) &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;, <span class="number">500</span>)</span><br></pre></td></tr></table></figure>
+<p>Or check out a <a href="http://requirebin.com/?gist=679b58d4237eaca37173" target="_blank" rel="external">more complicated example</a> (feel free to change the code and see what happens):</p>
+<p><a href="http://requirebin.com/embed?gist=679b58d4237eaca37173" target="_blank" rel="external"><img src="requirebin.png" alt="requirebin"></a></p>
+<h2 id="Going-with-the-grain"><a href="#Going-with-the-grain" class="headerlink" title="Going with the grain"></a>Going with the grain</h2><p>Like any good tool, node is best suited for a certain set of use cases. For example: Rails, the popular web framework, is great for modeling complex <a href="https://en.wikipedia.org/wiki/Business_logic" target="_blank" rel="external">business logic</a>, e.g. using code to represent real life business objects like accounts, loan, itineraries, and inventories. While it is technically possible to do the same type of thing using node, there would be definite drawbacks since node is designed for solving I/O problems and it doesn’t know much about ‘business logic’. Each tool focuses on different problems. Hopefully this guide will help you gain an intuitive understanding of the strengths of node so that you know when it can be useful to you.</p>
+<h3 id="What-is-outside-of-node’s-scope"><a href="#What-is-outside-of-node’s-scope" class="headerlink" title="What is outside of node’s scope?"></a>What is outside of node’s scope?</h3><p>Fundamentally node is just a tool used for managing I/O across file systems and networks, and it leaves other more fancy functionality up to third party modules. Here are some things that are outside the scope of node:</p>
+<h4 id="Web-frameworks"><a href="#Web-frameworks" class="headerlink" title="Web frameworks"></a>Web frameworks</h4><p>There are a number of web frameworks built on top of node (framework meaning a bundle of solutions that attempts to address some high level problem like modeling business logic), but node is not a web framework. Web frameworks that are written using node don’t always make the same kind of decisions about adding complexity, abstractions and tradeoffs that node does and may have other priorities.</p>
+<h4 id="Language-syntax"><a href="#Language-syntax" class="headerlink" title="Language syntax"></a>Language syntax</h4><p>Node uses JavaScript and doesn’t change anything about it. Felix Geisendörfer has a pretty good write-up of the ‘node style’ <a href="https://github.com/felixge/node-style-guide" target="_blank" rel="external">here</a>.</p>
+<h4 id="Language-abstraction"><a href="#Language-abstraction" class="headerlink" title="Language abstraction"></a>Language abstraction</h4><p>When possible node will use the simplest possible way of accomplishing something. The ‘fancier’ you make your JavaScript the more complexity and tradeoffs you introduce. Programming is hard, especially in JS where there are 1000 solutions to every problem! It is for this reason that node tries to always pick the simplest, most universal option. If you are solving a problem that calls for a complex solution and you are unsatisfied with the ‘vanilla JS solutions’ that node implements, you are free to solve it inside your app or module using whichever abstractions you prefer.</p>
+<p>A great example of this is node’s use of callbacks. Early on node experimented with a feature called ‘promises’ that added a number of features to make async code appear more linear. It was taken out of node core for a few reasons:</p>
+<ul>
+<li>they are more complex than callbacks</li>
+<li>they can be implemented in userland (distributed on npm as third party modules)</li>
+</ul>
+<p>Consider one of the most universal and basic things that node does: reading a file. When you read a file you want to know when errors happen, like when your hard drive dies in the middle of your read. If node had promises everyone would have to branch their code like this:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>)</span><br><span class="line">.then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line"><span class="comment">// do stuff with data</span></span><br><span class="line">&#125;)</span><br><span class="line">.error(<span class="function"><span class="keyword">function</span>(<span class="params">error</span>) </span>&#123;</span><br><span class="line"><span class="comment">// handle error</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>This adds complexity, and not everyone wants that. Instead of two separate functions node just uses a single callback function. Here are the rules:</p>
+<ul>
+<li>When there is no error pass null as the first argument</li>
+<li>When there is an error, pass it as the first argument</li>
+<li>The rest of the arguments can be used for anything (usually data or responses since most stuff in node is reading or writing things)</li>
+</ul>
+<p>Hence, the node callback style:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(<span class="string">'movie.mp4'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line"><span class="comment">// handle error, do stuff with data</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Threads-fibers-non-event-based-concurrency-solutions"><a href="#Threads-fibers-non-event-based-concurrency-solutions" class="headerlink" title="Threads/fibers/non-event-based concurrency solutions"></a>Threads/fibers/non-event-based concurrency solutions</h4><p>Note: If you don’t know what these things mean then you will likely have an easier time learning node, since unlearning things is just as much work as learning things.</p>
+<p>Node uses threads internally to make things fast but doesn’t expose them to the user. If you are a technical user wondering why node is designed this way then you should 100% read about <a href="http://nikhilm.github.io/uvbook/" target="_blank" rel="external">the design of libuv</a>, the C++ I/O layer that node is built on top of.</p>
+<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p><img src="CCBY.png" alt="CCBY"></p>
+<p>Creative Commons Attribution License (do whatever, just attribute me)<br><a href="http://creativecommons.org/licenses/by/2.0/" target="_blank" rel="external">http://creativecommons.org/licenses/by/2.0/</a></p>
+<p>Donate icon is from the <a href="https://thenounproject.com/term/donate/285/" target="_blank" rel="external">Noun Project</a></p>
+
+  </article>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+</nav>
+
+
+      
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Yuzhen Liu using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+  </div>
+
+</div>
+
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="/images/me.jpeg">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/ZhackerZ">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.linkedin.com/in/yuzhenliu">
+        
+          <i class="icon iconfont linkedin">&#xe601;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.facebook.com/yuzhen.liu.96">
+        
+          <i class="icon iconfont facebook">&#xe604;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.quora.com/profile/Yuzhen-Liu">
+        
+          Quora
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://www.douban.com/people/54975775/">
+        
+          <i class="icon iconfont douban">&#xe609;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+    
+      backgroundImages.push('/images/1.jpg');
+    
+      backgroundImages.push('/images/2.jpg');
+    
+      backgroundImages.push('/images/3.jpg');
+    
+      backgroundImages.push('/images/4.jpg');
+    
+      backgroundImages.push('/images/5.jpg');
+    
+      backgroundImages.push('/images/6.jpg');
+    
+      backgroundImages.push('/images/7.jpg');
+    
+      backgroundImages.push('/images/8.jpg');
+    
+      backgroundImages.push('/images/9.jpg');
+    
+      backgroundImages.push('/images/11.jpg');
+    
+      backgroundImages.push('/images/12.jpg');
+    
+      backgroundImages.push('/images/13.jpg');
+    
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","zoomIn","swirLeft","swirRight","flash","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
